@@ -11,6 +11,7 @@
     <title>YEs</title>
 </head>
 <body>
+    <h1>${now}</h1>
     <div>Hello world</div>
 </body>
 </html>

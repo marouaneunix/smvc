@@ -1,9 +1,12 @@
 package ma.naf.cinatis.config;
 
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -15,11 +18,17 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @ComponentScan(basePackages = {"ma.naf.cinatis.web"})
 public class WebConfig implements WebMvcConfigurer {
 
+    @Value("${view.prefix}")
+    private String prefix;
+
+    @Value("${view.suffix}")
+    private String suffix;
     @Bean
     public InternalResourceViewResolver viewResolver(){
+        System.out.println(prefix);
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
+        viewResolver.setPrefix(prefix);
+        viewResolver.setSuffix(suffix);
         viewResolver.setExposeContextBeansAsAttributes(true);
         return viewResolver;
     }
@@ -31,7 +40,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/assets/**")
-                .addResourceLocations("/public", "classpath:/static/")
+                .addResourceLocations("/public", "classpath:/static/", "classpath:resources")
                 .setCachePeriod(31556926);
     }
 
@@ -40,4 +49,8 @@ public class WebConfig implements WebMvcConfigurer {
         configurer.enable();
     }
 
+    @Bean
+    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+        return new PropertySourcesPlaceholderConfigurer();
+    }
 }
