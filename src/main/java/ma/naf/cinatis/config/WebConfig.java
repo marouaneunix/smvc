@@ -16,6 +16,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = {"ma.naf.cinatis.web"})
+@PropertySource("classpath:application.properties")
 public class WebConfig implements WebMvcConfigurer {
 
     @Value("${view.prefix}")
@@ -50,7 +51,9 @@ public class WebConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
+    public static PropertySourcesPlaceholderConfigurer propertyPlaceholderConfigurer() {
         return new PropertySourcesPlaceholderConfigurer();
     }
+
+
 }
