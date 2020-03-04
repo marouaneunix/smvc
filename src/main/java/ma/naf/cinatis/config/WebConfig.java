@@ -26,7 +26,6 @@ public class WebConfig implements WebMvcConfigurer {
     private String suffix;
     @Bean
     public InternalResourceViewResolver viewResolver(){
-        System.out.println(prefix);
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setPrefix(prefix);
         viewResolver.setSuffix(suffix);
