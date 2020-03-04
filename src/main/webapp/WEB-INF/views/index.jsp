@@ -15,7 +15,6 @@
         <caption><h2>List of users</h2></caption>
         <tr>
             <th>ID</th>
-
         </tr>
         <c:forEach var="article" items="${articles}">
             <tr>

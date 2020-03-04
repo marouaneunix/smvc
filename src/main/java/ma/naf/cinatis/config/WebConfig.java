@@ -7,10 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @EnableWebMvc
@@ -24,6 +21,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Value("${view.suffix}")
     private String suffix;
+
     @Bean
     public InternalResourceViewResolver viewResolver(){
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -42,6 +40,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/assets/**")
                 .addResourceLocations("/public", "classpath:/static/", "classpath:resources")
                 .setCachePeriod(31556926);
+    }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/v1/rest/**").allowedOrigins("http://localhost:4200");
     }
 
     @Override
