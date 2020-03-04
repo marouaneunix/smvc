@@ -1,11 +1,8 @@
 package ma.naf.cinatis.config;
 
-import ma.naf.cinatis.repository.ArticleMapper;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.mapper.MapperFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
@@ -33,11 +30,4 @@ public class DbConfig {
         factoryBean.setDataSource(dataSource());
         return factoryBean.getObject();
     }
-
-    /*
-    @Bean
-    public ArticleMapper articleMapper() throws Exception {
-        SqlSessionTemplate sqlSessionTemplate = new SqlSessionTemplate(sqlSessionFactory());
-        return sqlSessionTemplate.getMapper(ArticleMapper.class);
-    }*/
 }

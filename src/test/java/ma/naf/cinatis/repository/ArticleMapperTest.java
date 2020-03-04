@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -19,13 +21,13 @@ public class ArticleMapperTest {
     private ArticleMapper articleMapper;
 
     @Test
-    public void whenRecordsInDatabase_shouldReturnArticleWithGivenId() {
-        Article article = articleMapper.getArticle(1L);
+    public void should_return_article_by_given_id() {
+        Optional<Article> article = articleMapper.getArticleById(1L);
 
-        assertThat(article).isNotNull();
-        assertThat(article.getId()).isEqualTo(1L);
-        assertThat(article.getAuthor()).isEqualTo("Baeldung");
-        assertThat(article.getTitle()).isEqualTo("Working with MyBatis in Spring");
+        assertThat(article).isPresent();
+        assertThat(article.get().getId()).isEqualTo(1L);
+        assertThat(article.get().getAuthor()).isEqualTo("Baeldung");
+        assertThat(article.get().getTitle()).isEqualTo("Working with MyBatis in Spring");
     }
 
 }
